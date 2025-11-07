@@ -203,7 +203,7 @@ GetDotPlot <- function(inputDataList, inputDataIndex, inputGeneList, inputWidth,
     multiple_genes <- as.data.frame(cbind(cluster = as.character(inputDataObj$plot_df$cluster), as.data.frame(gene_exp)))
 
     #Calculate the average expression per gene per cluster
-    avgs <- multiple_genes %>% group_by(cluster) %>% dplyr::summarise_all(funs(mean))
+    avgs <- multiple_genes %>% group_by(cluster) %>% dplyr::summarise_all(mean)
     #Normalize so max is 1, melt the dataframe so we can plot it, and max sure the clusters are factors for proper plotting
     avgs <- melt(cbind(cluster = avgs$cluster, avgs %>% select(-cluster)), id.vars = c("cluster"))
     colnames(avgs) = c("cluster", "gene", "average_expression")
@@ -211,7 +211,7 @@ GetDotPlot <- function(inputDataList, inputDataIndex, inputGeneList, inputWidth,
     #avgs$cluster = as.factor(avgs$cluster)
 
     #Calculate the percent of cells that each gene was detected in per cluster
-    p_above <- melt(multiple_genes %>% group_by(cluster) %>% dplyr::summarise_all(funs(PercentAbove)), id.vars = c("cluster"))
+    p_above <- melt(multiple_genes %>% group_by(cluster) %>% dplyr::summarise_all(PercentAbove), id.vars = c("cluster"))
 
     #Combine the calculations
     combined = cbind(avgs, percent_above = 100 * p_above[, 3])
