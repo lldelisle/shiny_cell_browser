@@ -26,7 +26,7 @@ names(dataset_selector) <- c(dataset_names)
 config <- json_file$config
 
 IsSeurat2 <- function() {
-  return (packageVersion("Seurat") < 3)
+  return (packageVersion("Seurat") < "3")
 }
 
 SetAllIdent <- function(object, ids) {

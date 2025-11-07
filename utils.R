@@ -24,7 +24,7 @@ MaxMutate <- function(x) {
 }
 
 IsSeurat2 <- function() {
-  return (packageVersion("Seurat") < 3)
+  return (packageVersion("Seurat") < "3")
 }
 
 get_shared_genes <- function(inputGeneList1, inputGeneList2, topN) {
