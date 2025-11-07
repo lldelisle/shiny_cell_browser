@@ -355,7 +355,7 @@ server <- function(input, output, session) {
                             "function(data, type, row, meta) {",
                             "return type === 'display'?",
                             "'<a href=\"https://www.genecards.org/cgi-bin/carddisp.pl?gene=' + data + '\">' + data + '</a>' : data;",
-                            "}"), targets = c(0)) #,
+                            "}"), targets = "gene") #,
     #{
     # if ('id' %in% colnames(organoid()$diff_eq_table)) {
     #   list(
