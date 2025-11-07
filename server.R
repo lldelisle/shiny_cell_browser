@@ -309,6 +309,8 @@ server <- function(input, output, session) {
 
   ##GRAPHIC OUTPUTS
   output$cluster_plot <- renderPlotly({
+    # Replot when the hidden_selected_gene change
+    tmp <- input$hidden_selected_gene
     p <- GetClusterPlot(data_list, current_dataset_index(), plot_window_width(), plot_window_height())
     observer_cluster$resume()
     return(p)
