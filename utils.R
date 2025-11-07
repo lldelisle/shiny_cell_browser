@@ -182,7 +182,7 @@ GetExpressionPlot <- function(inputDataList, inputDataIndex, inputGene, inputWid
       xaxis = x_ax,
       yaxis = y_ax
     ) %>% 
-    # hide_colorbar() %>% 
+    hide_colorbar() %>%
     config(displayModeBar = F)
 
     return(p)

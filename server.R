@@ -332,6 +332,22 @@ server <- function(input, output, session) {
     }
     return(sprintf("Genes differentially expressed in %s", baseString))
   })
+  
+  # Synchronize the zoom of both plots:
+  
+  clusterproxy <- plotlyProxy("cluster_plot", session = session)
+  expressionproxy <- plotlyProxy("expression_plot", session = session)
+  observeEvent(event_data("plotly_relayout", source = "plot_cluster", priority = "input"), {
+    ed <- event_data("plotly_relayout", source = "plot_cluster", priority = "input")
+    print("Clustered zoom")
+    print(ed)
+    plotlyProxyInvoke(expressionproxy, "relayout", ed)
+  })
+  observeEvent(event_data("plotly_relayout", source = "plot_expression", priority = "input"), {
+    ed <- event_data("plotly_relayout", source = "plot_expression", priority = "input")
+    print(ed)
+    plotlyProxyInvoke(clusterproxy, "relayout", ed)
+  })
 
   #TABLE OUTPUT
   #Format the cluster gene table and add links to Addgene and ENSEMBL
