@@ -226,14 +226,10 @@ server <- function(input, output, session) {
                ignoreNULL = TRUE, ignoreInit = TRUE)
 
   #Update expression plot on click
-  observeEvent({
+  observer_dotplot <- observeEvent(event_data("plotly_click", source = "plot_dot"), suspended = TRUE, {
     s <- event_data("plotly_click", source = "plot_dot")
-    return(!is.null(s$y))
-  }, {
-    s <- event_data("plotly_click", source = "plot_dot")
-    updateTextInput(session, "hidden_selected_gene", value = s$y)
-  },
-  ignoreNULL = TRUE, ignoreInit = TRUE)
+      updateTextInput(session, "hidden_selected_gene", value = s$y)
+  })
 
 
   #Update expression plot from selectize input
@@ -276,10 +272,7 @@ server <- function(input, output, session) {
   })
 
   #Monitor cluster plot for changes and update hidden_selected_cluster field
-  observeEvent({
-    s <- event_data("plotly_click", source = "plot_cluster")
-    return(!is.null(s))
-  }, {
+  observer_cluster <- observeEvent(event_data("plotly_click", source = "plot_cluster"), suspended = TRUE, {
     s <- event_data("plotly_click", source = "plot_cluster")
     if (!is.null(s)) {
       updateTextInput(session, "hidden_selected_cluster", value = s$key)
@@ -315,7 +308,9 @@ server <- function(input, output, session) {
 
   ##GRAPHIC OUTPUTS
   output$cluster_plot <- renderPlotly({
-    GetClusterPlot(data_list, current_dataset_index(), plot_window_width(), plot_window_height())
+    p <- GetClusterPlot(data_list, current_dataset_index(), plot_window_width(), plot_window_height())
+    observer_cluster$resume()
+    return(p)
   }
   )
   output$expression_plot <- renderPlotly({
@@ -323,7 +318,9 @@ server <- function(input, output, session) {
   }
   )
   output$dot_plot <- renderPlotly({
-    GetDotPlot(data_list, current_dataset_index(), current_gene_list(), plot_window_width(), plot_window_height())
+    p <- GetDotPlot(data_list, current_dataset_index(), current_gene_list(), plot_window_width(), plot_window_height())
+    observer_dotplot$resume()
+    return(p)
   }
   )
 
