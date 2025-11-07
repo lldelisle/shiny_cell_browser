@@ -203,6 +203,7 @@ server <- function(input, output, session) {
   observeEvent({ current_dataset_index() }, {
     current_index <- current_dataset_index()
     if (is.null(data_list[[current_index]])) {
+      logging::loginfo("loading dataset #%s.", current_index)
       # Use <<- to modify global variable (shared across sessions)
       data_list[[current_index]] <<- read_data(json_data[[current_index]])
       logging::loginfo("loaded dataset #%s.", current_index)
