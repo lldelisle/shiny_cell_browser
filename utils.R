@@ -182,7 +182,7 @@ GetExpressionPlot <- function(inputDataList, inputDataIndex, inputGene, inputWid
       xaxis = x_ax,
       yaxis = y_ax
     ) %>% 
-    hide_colorbar() %>% 
+    # hide_colorbar() %>% 
     config(displayModeBar = F)
 
     return(p)
@@ -264,7 +264,7 @@ GetDotPlot <- function(inputDataList, inputDataIndex, inputGeneList, inputWidth,
       yaxis = y_ax,
       xaxis = x_ax,
       font = t
-    ) #%>% config(displayModeBar = F)
+    ) %>% config(displayModeBar = F)
 
     return(p)
   }
