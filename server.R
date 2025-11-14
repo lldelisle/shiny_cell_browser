@@ -102,6 +102,10 @@ read_data <- function(x) {
     set.seed(2)
     colors <- sample(hue_pal()(n_distinct(GetActiveIdent(seurat_data))))
   }
+  # Change the Assay
+  if (!is.null(x$Assay)) {
+    DefaultAssay(seurat_data) <- x$Assay
+  }
   genes <- sort(rownames(GetAssayData(seurat_data)))
 
   #Parser additions

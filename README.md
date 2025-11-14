@@ -43,6 +43,7 @@ Published data using this web app:
       - `pt_size` (optional): if set, overrides the automatically computed point size in embedding plots.
       - `font_scale` (optional): if set, scales the font size of cluster labels by this factor.
       - `label_coordinates` (optional): if set, the cluster labels will be placed at these coordinates rather than at the center of each cluster.
+      - `Assay` (optional): if set, the DefaultAssay of the Seurat object is changed to this one.
 
 ## Launching the Single Cell Browser locally
   - Set the working directory (e.g. `cd shiny_cell_browser` in command line, or `setwd` in Rstudio)
