@@ -8,6 +8,8 @@ library(DT)
 library(rlist)
 library(logging)
 library(scales)
+library(shinyjs)
+library(shinythemes)
 source("utils.R")
 
 #Start to read in the config file.
