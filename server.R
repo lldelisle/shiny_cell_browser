@@ -347,13 +347,13 @@ server <- function(input, output, session) {
   expressionproxy <- plotlyProxy("expression_plot", session = session)
   observeEvent(event_data("plotly_relayout", source = "plot_cluster", priority = "input"), {
     ed <- event_data("plotly_relayout", source = "plot_cluster", priority = "input")
-    print("Clustered zoom")
-    print(ed)
+    # Adapt the width and height to the cluster plot
+    ed$width <- session$clientData$output_cluster_plot_width
+    ed$height <- session$clientData$output_cluster_plot_width
     plotlyProxyInvoke(expressionproxy, "relayout", ed)
   })
   observeEvent(event_data("plotly_relayout", source = "plot_expression", priority = "input"), {
     ed <- event_data("plotly_relayout", source = "plot_expression", priority = "input")
-    print(ed)
     plotlyProxyInvoke(clusterproxy, "relayout", ed)
   })
 
